@@ -43,7 +43,7 @@ class Model
     {
         $db = Server\Database::connect();
         $stmt = $db->prepare('INSERT IGNORE INTO torrents (title, info_hash, added, size, category, link)
-                                                              VALUES(:title, :info_hash, :added, :size, :category, :link)');
+                              VALUES(:title, :info_hash, :added, :size, :category, :link)');
         header("Content-Type: text/json, text/plain");
         $json_data = file_get_contents(Config\App::CRON_USER);
 
@@ -56,7 +56,7 @@ class Model
         }
 
         foreach ($data->items as $item) {
-			$item->name = str_replace('.', ' ', $item->name);
+            $item->name = str_replace('.', ' ', $item->name);
             $stmt->bindParam(':title', $item->name, \PDO::PARAM_STR);
             $stmt->bindParam(':info_hash', $item->info_hash, \PDO::PARAM_STR);
             $stmt->bindParam(':added', $item->added, \PDO::PARAM_STR);
